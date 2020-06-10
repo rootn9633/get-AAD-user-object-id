@@ -34,6 +34,8 @@
                 'Authorization': 'Bearer <%=access_token%>'
             };
             const headers = new Headers(meta);
+
+            // an example of using the Graph API to obtain the Object ID of the entered user.
             fetch(`https://graph.microsoft.com/v1.0/users/${userId}`, {headers})
                 .then(r => r.json())
                 .then(json => {
