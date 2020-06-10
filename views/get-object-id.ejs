@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>get object id</title>
+    <link rel="stylesheet" href="Skeleton-2.0.4/css/skeleton.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Enter User ID</h1>
+        <form id="getObjectId">
+            
+            <div class="row">
+                <div class="six columns">
+                    <!-- <label for="userIdInput">User ID</label> -->
+                    <input class="u-full-width" type="email" placeholder="xxx@xx.xx" id="userIdInput">
+                </div>
+            </div>
+            <input class="button-primary" type="submit" value="Get">
+        </form>
+        <h1>Object ID</h1>
+        <div class="row">
+            <div class="six columns" id="objectId" style="background-color: lightgray;"></div>
+        </div>
+        <style>
+        </style>
+    </div>
+    <script>
+        document.getElementById("getObjectId").onsubmit = event => {
+            event.preventDefault();
+            const userId = document.getElementById("userIdInput").value
+            const meta = {
+                'Authorization': 'Bearer <%=access_token%>'
+            };
+            const headers = new Headers(meta);
+            fetch(`https://graph.microsoft.com/v1.0/users/${userId}`, {headers})
+                .then(r => r.json())
+                .then(json => {
+                    console.log(json)
+                    document.getElementById("objectId").innerHTML = json.id
+                });
+            
+            return false;
+        }
+    </script>
+</body>
+</html>
